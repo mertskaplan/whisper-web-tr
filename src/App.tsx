@@ -15,10 +15,6 @@ function App() {
                 <AudioManager transcriber={transcriber} />
                 <Transcript transcribedData={transcriber.output} />
             </div>
-
-            <div className='absolute bottom-4'>
-                <a href='https://mertskaplan.com'>mertskaplan</a>
-            </div>
         </div>
     );
 }
