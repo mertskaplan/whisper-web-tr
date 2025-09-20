@@ -22,6 +22,7 @@ function titleCase(str: string) {
 // https://help.openai.com/en/articles/7031512-whisper-api-faq
 // https://github.com/openai/whisper/blob/248b6cb124225dd263bb9bd32d060b6517e067f8/whisper/tokenizer.py#L79
 const LANGUAGES = {
+    tr: "turkish",
     en: "english",
     zh: "chinese",
     de: "german",
@@ -31,7 +32,6 @@ const LANGUAGES = {
     fr: "french",
     ja: "japanese",
     pt: "portuguese",
-    tr: "turkish",
     pl: "polish",
     ca: "catalan/valencian",
     nl: "dutch/flemish",
@@ -243,7 +243,7 @@ export function AudioManager(props: { transcriber: Transcriber }) {
                 <div className='flex flex-row space-x-2 py-2 w-full px-2'>
                     <UrlTile
                         icon={<AnchorIcon />}
-                        text={"From URL"}
+                        text={"Adresten yükle"}
                         onUrlUpdate={(e) => {
                             props.transcriber.onInputChange();
                             setAudioDownloadUrl(e);
@@ -252,7 +252,7 @@ export function AudioManager(props: { transcriber: Transcriber }) {
                     <VerticalBar />
                     <FileTile
                         icon={<FolderIcon />}
-                        text={"From file"}
+                        text={"Dosyadan yükle"}
                         onFileUpdate={(decoded, blobUrl, mimeType) => {
                             props.transcriber.onInputChange();
                             setAudioData({
@@ -268,7 +268,7 @@ export function AudioManager(props: { transcriber: Transcriber }) {
                             <VerticalBar />
                             <RecordTile
                                 icon={<MicrophoneIcon />}
-                                text={"Record"}
+                                text={"Ses kaydet"}
                                 setAudioData={(e) => {
                                     props.transcriber.onInputChange();
                                     setAudioFromRecording(e);
@@ -309,7 +309,7 @@ export function AudioManager(props: { transcriber: Transcriber }) {
                     {props.transcriber.progressItems.length > 0 && (
                         <div className='relative z-10 p-4 w-full'>
                             <label>
-                                Loading model files... (only run once)
+                                Model yükleniyor... (yalnızca bir defa)
                             </label>
                             {props.transcriber.progressItems.map((data) => (
                                 <div key={data.file}>
@@ -381,10 +381,10 @@ function SettingsModal(props: {
     return (
         <Modal
             show={props.show}
-            title={"Settings"}
+            title={"Seçenekler"}
             content={
                 <>
-                    <label>Select the model to use.</label>
+                    <label>Kullanılacak modeli seç:</label>
                     <select
                         className='mt-1 mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                         defaultValue={props.transcriber.model}
@@ -428,7 +428,7 @@ function SettingsModal(props: {
                                 }}
                             ></input>
                             <label htmlFor={"multilingual"} className='ms-1'>
-                                Multilingual
+                                Dil seçimi yap
                             </label>
                         </div>
                         <div className='flex'>
@@ -443,13 +443,13 @@ function SettingsModal(props: {
                                 }}
                             ></input>
                             <label htmlFor={"quantize"} className='ms-1'>
-                                Quantized
+                                Ölçeklendirilmiş
                             </label>
                         </div>
                     </div>
                     {props.transcriber.multilingual && (
                         <>
-                            <label>Select the source language.</label>
+                            <label>Kaynak sesi dilini seç:</label>
                             <select
                                 className='mt-1 mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                                 defaultValue={props.transcriber.language}
@@ -465,7 +465,7 @@ function SettingsModal(props: {
                                     </option>
                                 ))}
                             </select>
-                            <label>Select the task to perform.</label>
+                            <label>Görevi belirle:</label>
                             <select
                                 className='mt-1 mb-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                                 defaultValue={props.transcriber.subtask}
@@ -475,9 +475,9 @@ function SettingsModal(props: {
                                     );
                                 }}
                             >
-                                <option value={"transcribe"}>Transcribe</option>
+                                <option value={"transcribe"}>Deşifre</option>
                                 <option value={"translate"}>
-                                    Translate (to English)
+                                    Çeviri (İngilizceye)
                                 </option>
                             </select>
                         </>
@@ -555,15 +555,15 @@ function UrlModal(props: {
     return (
         <Modal
             show={props.show}
-            title={"From URL"}
+            title={"Adresten"}
             content={
                 <>
-                    {"Enter the URL of the audio file you want to load."}
+                    {"Yüklemek istediğiniz ses dosyasının adresini girin."}
                     <UrlInput onChange={onChange} value={url} />
                 </>
             }
             onClose={props.onClose}
-            submitText={"Load"}
+            submitText={"Yükle"}
             onSubmit={onSubmit}
         />
     );
@@ -680,15 +680,15 @@ function RecordModal(props: {
     return (
         <Modal
             show={props.show}
-            title={"From Recording"}
+            title={"Kayıttan"}
             content={
                 <>
-                    {"Record audio using your microphone"}
+                    {"Mikrofon ile bir ses kaydet"}
                     <AudioRecorder onRecordingComplete={onRecordingComplete} />
                 </>
             }
             onClose={onClose}
-            submitText={"Load"}
+            submitText={"Yükle"}
             submitEnabled={audioBlob !== undefined}
             onSubmit={onSubmit}
         />
