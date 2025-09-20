@@ -22,8 +22,8 @@ function titleCase(str: string) {
 // https://help.openai.com/en/articles/7031512-whisper-api-faq
 // https://github.com/openai/whisper/blob/248b6cb124225dd263bb9bd32d060b6517e067f8/whisper/tokenizer.py#L79
 const LANGUAGES = {
-    tr: "turkish",
     en: "english",
+    tr: "turkish",
     zh: "chinese",
     de: "german",
     es: "spanish/castilian",
