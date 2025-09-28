@@ -24,7 +24,7 @@ const isMobileOrTablet = mobileTabletCheck();
 export default {
     SAMPLING_RATE: 16000,
     DEFAULT_AUDIO_URL: `https://whisper.mertskaplan.com/asaf-halet-celebi-kedi.mp3`,
-    DEFAULT_MODEL: "Xenova/whisper-medium",
+    DEFAULT_MODEL: "Xenova/whisper-base",
     DEFAULT_SUBTASK: "transcribe",
     DEFAULT_LANGUAGE: "turkish",
     DEFAULT_QUANTIZED: isMobileOrTablet,
