@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  whisper-web:
+    image: whisper-web-tr:latest
+    build:
+      context: https://github.com/mertskaplan/whisper-web-tr.git
+    container_name: whisper-web-tr
+    ports:
+      - "4175:4173"
+    restart: unless-stopped
